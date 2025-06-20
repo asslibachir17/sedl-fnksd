@@ -1,11 +1,11 @@
-const puppeteer = require('puppeteer-extra');
+const puppeteer = require('puppeteer');
+const puppeteerExtra = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const proxyPlugin = require('puppeteer-extra-plugin-proxy');
-const axios = require('axios');
 
-puppeteer.use(StealthPlugin());
+puppeteerExtra.use(StealthPlugin());
 
-puppeteer.use(proxyPlugin({
+puppeteerExtra.use(proxyPlugin({
   address: 'gw.dataimpulse.com',
   port: 823,
   credentials: {
@@ -13,6 +13,7 @@ puppeteer.use(proxyPlugin({
     password: '6fe62268a51a4085'
   }
 }));
+
 
 const userData = {
   wassit: '170499004650',
@@ -39,10 +40,12 @@ async function sendFacebookMessage(text) {
 }
 
 async function checkAppointmentStatus() {
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox']
-  });
+const browser = await puppeteerExtra.launch({
+  headless: true,
+  args: ['--no-sandbox'],
+  executablePath: puppeteer.executablePath(), // 💡 هذا هو السطر المهم
+});
+
 
   const page = await browser.newPage();
 
