@@ -40,11 +40,12 @@ async function sendFacebookMessage(text) {
 }
 
 async function checkAppointmentStatus() {
-const browser = await puppeteer.launch({
+const browser = await puppeteerExtra.launch({
   headless: true,
-  executablePath: require('puppeteer').executablePath(), // ✅ هذا هو الأهم
+  executablePath: puppeteer.executablePath(), // ✅ هنا استخدم المسار من puppeteer
   args: ['--no-sandbox', '--disable-setuid-sandbox']
 });
+
 
 
   const page = await browser.newPage();
